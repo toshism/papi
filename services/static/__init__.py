@@ -1,1 +1,1 @@
-from static import json
+from static import StaticData
