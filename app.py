@@ -3,6 +3,8 @@ from flask import Flask, Response
 from flask.ext.cache import Cache
 
 app = Flask(__name__)
+
+# TODO set up actual caching backend (CACHE_TYPE)
 cache = Cache(app)
 
 app.config.from_object('settings')
