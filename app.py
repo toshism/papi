@@ -14,9 +14,12 @@ app.config['DEBUG'] = True
 def index(path):
     endpoint = app.config['ENDPOINTS'].get(path)
     if not endpoint:
+        # TODO log this or something
+        # maybe just return a 404
         return "no endpoint"
     module_path = endpoint.get('service')
     if not module_path:
+        # TODO log this or something
         return "no module"
     module_name, klass = module_path.rsplit(".", 1)
     module = importlib.import_module(module_name)
