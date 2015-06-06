@@ -2,19 +2,31 @@
 # probably split endpoints into a separate file
 # or something maybe?
 
+
 ENDPOINTS = {
     '/': {
-        'service': 'services.static.static.StaticData',
+        'service': 'papi.services.static.StaticData',
+        'description': 'Personal Information',
         'data': {
             'name': 'Tosh',
             'email': 'toshism@gmail.com'
         }
     },
-    'test': {
-        'service': 'services.test',
+    '/code': {
+        'service': 'papi.services.github.GitHub',
+        'description': 'Github Activity Summary',
         'data': {
-            'name': 'Tosh',
-            'email': 'toshism@gmail.com'
+            'username': 'toshism',
+            'data_type': 'summary'
+        }
+    },
+    '/code/repos': {
+        'service': 'papi.services.github.GitHub',
+        'description': 'Github Repos',
+        'data': {
+            'username': 'toshism',
+            'data_type': 'repos'
         }
     }
+
 }
