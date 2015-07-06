@@ -2,9 +2,9 @@
 # probably split endpoints into a separate file
 # or something maybe?
 
-
+# "/" is reserved
 ENDPOINTS = {
-    '/': {
+    '/me': {
         'service': 'papi.services.static.StaticData',
         'description': 'Personal Information',
         'data': {

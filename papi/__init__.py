@@ -1,6 +1,7 @@
 import importlib
+import json
 
-from flask import Flask, Response, Blueprint, current_app
+from flask import Flask, Response, Blueprint, current_app, request
 from flask.ext.cache import Cache
 
 papi = Blueprint('papi', __name__)
@@ -13,10 +14,19 @@ def get_class(path):
 
     return getattr(module, klass)
 
+@papi.route('/')
+def index():
+    endpoints = current_app.config['ENDPOINTS']
+    api_map = {}
+    for endpoint in endpoints:
+        base_url = request.base_url.rstrip('/')
+        api_map[base_url + endpoint] = endpoints[endpoint].get('description', "Unknown")
+    resp = json.dumps(api_map)
+    return Response(response=resp, status=200, mimetype="application/json")
 
-@papi.route('/', defaults={'path': '/'})
+#@papi.route('/', defaults={'path': '/'})
 @papi.route('/<path:path>')
-def index(path):
+def endpoints(path):
     path = "/%s" % path
     endpoint = current_app.config['ENDPOINTS'].get(path)
 
@@ -37,7 +47,7 @@ def index(path):
     Service = service(endpoint['data'], cache)
     result = Service.get()
 
-    presenter_path = endpint.get('presenter')
+    presenter_path = endpoint.get('presenter')
     if presenter_path:
         presenter = get_class(presenter_path)
         Presenter = presenter(result)

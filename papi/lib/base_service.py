@@ -6,7 +6,7 @@ from flask.ext.cache import Cache
 # or somewhere more appropriate probably
 
 class BaseService(object):
-    def __init__(self, data, cache, presenter):
+    def __init__(self, data, cache, presenter=None):
         self.data = data
         self.requests = requests
         # TODO figure out config structure for cache settings
